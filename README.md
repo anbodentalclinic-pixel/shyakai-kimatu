@@ -5,7 +5,7 @@
 公開URL: https://anbodentalclinic-pixel.github.io/shyakai-kimatu/
 
 ## 今回の変更（スプレッドシート連携）
-- 解答するたびに、約3秒後に記録をGoogle Apps Script（国語アプリと同じ送信先）へ自動送信
+- 解答するたびに、約3秒後に記録を専用のGoogle Apps Script（スプレッドシート「拓真 社会記録」）へ自動送信
 - 送信時のアプリ名は `shakai`
 - 送るシート
   - 単元まとめ：単元ごとの問題数・取り組んだ数・正解率・復習したい問題数
@@ -15,3 +15,6 @@
 
 ## 更新方法
 このフォルダの4ファイル（index.html・icon.png・.nojekyll・README.md）をリポジトリに上書きアップロード。
+
+## 送信先の設定
+送信先URLは設定済み（スプレッドシート「拓真 社会記録」のApps Script）。スクリプトを新しくデプロイし直してURLが変わったときは、index.html の LOG_URL を書き換える。合言葉（LOG_KEY）はスクリプト側と同じ値を設定済み。

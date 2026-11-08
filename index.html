@@ -382,9 +382,9 @@ function render(){done=false;prepHint();$('streakBadge').textContent='✨ 連続
 function answer(i){if(done)return;done=true;let x=pool[idx],ok=i===x.ans;if(ok){correct++;streak++;}else{streak=0;}saveAttempt(x,i,ok);$('streakBadge').textContent=(streak>=3?'🔥 ':'✨ ')+'連続正解 '+streak;$('encourage').textContent=ok?(streak>=3?'🔥 すごい！連続正解！':'🎉 いいね！その調子！'):'💡 間違いは発見！解説を読めば次はできる！';save();beep(ok);document.querySelectorAll('[data-answer]').forEach(b=>{let a=Number(b.dataset.answer);b.disabled=true;if(a===x.ans)b.classList.add('good');else if(a===i)b.classList.add('bad')});$('score').textContent=`正解 ${correct} / 解答 ${idx+1}`;$('bar').style.width=((idx+1)/pool.length*100)+'%';$('feedback').hidden=false;if(!ok||hintUsed)reasonPanel(x);$('feedback').innerHTML=`<h3 class="${ok?'goodtext':'badtext'}">${ok?'✓ 正解！':'↻ ここを覚えよう'}</h3><p><strong>いい考え方：</strong>${esc(x.why)}</p><p><strong>気をつけたい考え方：</strong>${esc(x.bad)}</p>`;$('next').hidden=false;$('next').textContent=idx===pool.length-1?'結果を見る →':'次の問題へ →'}
 $('next').onclick=()=>{idx++;render()};$('reset').onclick=()=>setCat(cat);$('review').onclick=()=>{let a=ALL.map((x,i)=>({...x,id:i})).filter(x=>x.cat===cat&&isDue(x.id));if(!a.length){alert('この範囲にはまだ間違いの記録がないよ。まず通常の問題にチャレンジ！');return}pool=a;idx=0;correct=0;streak=0;reviewMode=true;render()};$('print').onclick=()=>{let rows=ALL.filter(x=>x.cat===cat);$('printArea').innerHTML=`<h1 class="printHeader">社会学習サポート：${cat} ワーク類題 確認プリント</h1><p>名前：　　　　　　　　　　日付：　　　　　　　　　　</p><p>解説を見ずに答えてみよう。選択肢の記号を書こう。</p>`+rows.map((x,i)=>`<div class="printQ"><b>${i+1}. ${esc(x.q)}</b><div>${x.opts.map((o,j)=>'（'+('ABC'[j]+'）'+esc(o))).join('　')}</div><div>答え：＿＿＿＿＿</div></div>`).join('');window.print()};setCat(cat);updateDashboard();
 
-/* ---------- 記録の送信（スプレッドシート）国語アプリと同じ形式 ---------- */
-const LOG_URL="https://script.google.com/macros/s/AKfycby7lhyy9WtCE4ZqU48sLYJ5OGirOocbhPnfH7L4TtfZszQ1Hcnem2svJ_70vkvsJDRx/exec";
-const LOG_KEY="Pphha1TEbK66QTPT";
+/* ---------- 記録の送信（スプレッドシート）社会記録用 ---------- */
+const LOG_URL="https://script.google.com/macros/s/AKfycbzlv27p7jFXjIb8-SVXEqWDJdNER1pnPWxwuHC0V5xSxR3-2MQLKacX_4r1J3J3JzGq/exec";
+const LOG_KEY="OkTNqCQ7kItkQjwV";
 function syncMd(iso){if(!iso)return"";const d=new Date(iso);return (d.getMonth()+1)+"/"+d.getDate();}
 function syncRows(){
   const U=[["分野","単元","問題数","取り組んだ問題","解答した回数","正解率","復習したい問題"]];
